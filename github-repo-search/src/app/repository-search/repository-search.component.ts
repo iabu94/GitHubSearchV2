@@ -33,8 +33,10 @@ export class RepositorySearchComponent {
   }
 
   bookmark(repo: Repository) {
+    this.loading$.next(true);
     this.apiService.bookmarkRepository(repo).subscribe(() => {
-      // Handle success or error response
+      this.notification.success('Bookmarked success.')
+      this.loading$.next(false);
     });
   }
 }

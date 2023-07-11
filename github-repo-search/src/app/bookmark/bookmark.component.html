@@ -1,8 +1,11 @@
 <h2>Bookmarked Repositories</h2>
 
-<div class="repo-list">
-  <mat-card *ngFor="let repo of bookmarkedRepositories">
-    <img mat-card-avatar [src]="repo.avatar" alt="Avatar">
-    <mat-card-title>{{ repo.name }}</mat-card-title>
+
+<div class="cards-container">
+  <mat-card *ngFor="let repo of bookmarkedRepositories" class="example-card">
+    <mat-card-header class="example-card-header">
+      <mat-card-title>{{repo.name}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="repo.avatar" [alt]="repo.name">
   </mat-card>
 </div>

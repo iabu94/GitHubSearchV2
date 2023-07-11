@@ -15,12 +15,16 @@
 
 <mat-spinner class="custom-spinner" *ngIf="loading$ | async"></mat-spinner>
 
-<div class="repo-list">
-    <mat-card *ngFor="let repo of repositories">
-        <img mat-card-avatar [src]="repo.avatar" alt="Avatar">
-        <mat-card-title>{{ repo.name }}</mat-card-title>
-        <button mat-icon-button (click)="bookmark(repo)">
-            <mat-icon>bookmark</mat-icon>
-        </button>
+<div class="cards-container">
+    <mat-card *ngFor="let repo of repositories" class="example-card">
+        <mat-card-header class="example-card-header">
+            <div class="card-title-container">
+                <mat-card-title class="title" [title]="repo.name">{{repo.name}}</mat-card-title>
+            </div>
+            <button mat-icon-button (click)="bookmark(repo)">
+                <mat-icon>bookmark</mat-icon>
+            </button>
+        </mat-card-header>
+        <img mat-card-image [src]="repo.avatar" [alt]="repo.name">
     </mat-card>
 </div>

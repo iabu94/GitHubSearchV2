@@ -1,3 +1,19 @@
 h2 {
     text-align: center;
 }
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.example-card {
+    width: 200px;
+    margin: 5px;
+}
+
+.example-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

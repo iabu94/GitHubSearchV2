@@ -17,12 +17,14 @@ import { AppComponent } from './app.component';
 import { BookmarkComponent } from './bookmark/bookmark.component';
 import { RepositorySearchComponent } from './repository-search/repository-search.component';
 import { TokenInterceptor } from './services/token.interceptor';
+import { SnackbarCustomComponent } from './snackbar-custom/snackbar-custom.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RepositorySearchComponent,
-    BookmarkComponent
+    BookmarkComponent,
+    SnackbarCustomComponent
   ],
   imports: [
     CommonModule,
