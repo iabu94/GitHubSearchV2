@@ -3,7 +3,7 @@
 <div class="form-field-group">
     <mat-form-field class="example-form-field">
         <mat-label>Search key</mat-label>
-        <input matInput type="text" [(ngModel)]="searchKeyword" (keyup.enter)="search()">
+        <input matInput type="text" (change)="setKey()" [(ngModel)]="searchKeyword" (keyup.enter)="search()">
         <mat-error *ngIf="!searchKeyword">
             Please enter a keyword to search
         </mat-error>

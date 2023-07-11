@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Repository } from '../models';
 import { ApiService } from '../services/api.service';
@@ -9,12 +9,17 @@ import { NotificationService } from '../services/notification.service';
   templateUrl: './repository-search.component.html',
   styleUrls: ['./repository-search.component.scss']
 })
-export class RepositorySearchComponent {
+export class RepositorySearchComponent implements OnInit {
   searchKeyword: string = '';
   repositories: Repository[] = [];
   loading$ = new BehaviorSubject(false);
 
   constructor(private apiService: ApiService, private notification: NotificationService) { }
+  
+  ngOnInit(): void {
+    // this.searchKeyword = sessionStorage.getItem('githubsearchkey') ?? '';
+    // this.search();
+  }
 
   search() {
     this.loading$.next(true);
@@ -38,5 +43,9 @@ export class RepositorySearchComponent {
       this.notification.success('Bookmarked success.')
       this.loading$.next(false);
     });
+  }
+
+  setKey() {
+    sessionStorage.setItem('githubsearchkey', this.searchKeyword);
   }
 }

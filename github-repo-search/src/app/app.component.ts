@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from './services/auth.service';
 
@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.scss'],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private jwtHelper: JwtHelperService,
     private authService: AuthService
@@ -22,5 +22,9 @@ export class AppComponent implements OnInit {
         localStorage.setItem('uuid', res.token);
       });
     }
+  }
+  
+  ngOnDestroy(): void {
+    localStorage.removeItem('githubsearchkey');
   }
 }
