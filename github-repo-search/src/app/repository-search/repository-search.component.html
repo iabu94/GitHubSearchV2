@@ -1,0 +1,18 @@
+<h2>Repository Search</h2>
+
+<mat-form-field>
+    <input matInput placeholder="Enter repository name" [(ngModel)]="searchKeyword" (keyup.enter)="search()">
+</mat-form-field>
+<button mat-icon-button (click)="search()">
+    <mat-icon>search</mat-icon>
+</button>
+
+<div class="repo-list">
+    <mat-card *ngFor="let repo of repositories">
+        <img mat-card-avatar [src]="repo.avatar" alt="Avatar">
+        <mat-card-title>{{ repo.name }}</mat-card-title>
+        <button mat-icon-button (click)="bookmark(repo)">
+            <mat-icon>bookmark</mat-icon>
+        </button>
+    </mat-card>
+</div>
