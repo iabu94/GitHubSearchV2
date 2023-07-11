@@ -1,10 +1,7 @@
 ﻿using GitHubRepoSearch.DTOs;
 using GitHubRepoSearch.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace GitHubRepoSearch.Controllers
 {
@@ -36,11 +33,15 @@ namespace GitHubRepoSearch.Controllers
 
                 var repositories = JsonConvert.DeserializeObject<RepositoryResponseModel>(content);
 
-                var reposDto = repositories?.Items.Select(item => new RepositoryDto
+                if (repositories == null || repositories.Items == null) {
+                    return NoContent();
+                }
+
+                var reposDto = repositories.Items.Select(item => new RepositoryDto
                 {
                     Id = item.Id,
                     Name = item.Name,
-                    Avatar = item.Owner.Avatar_url
+                    Avatar = item.Owner?.Avatar_url
                 });
 
                 return Ok(reposDto);

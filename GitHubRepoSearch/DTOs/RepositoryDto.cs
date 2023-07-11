@@ -1,9 +1,8 @@
-﻿namespace GitHubRepoSearch.DTOs
+﻿namespace GitHubRepoSearch.DTOs;
+
+public class RepositoryDto
 {
-    public class RepositoryDto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Avatar { get; set; }
-    }
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public string? Avatar { get; set; }
 }
