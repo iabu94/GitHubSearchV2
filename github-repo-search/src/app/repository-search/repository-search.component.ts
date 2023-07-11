@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Repository } from '../models';
 import { ApiService } from '../services/api.service';
-import { AuthService } from '../services/auth.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-repository-search',
@@ -11,12 +12,23 @@ import { AuthService } from '../services/auth.service';
 export class RepositorySearchComponent {
   searchKeyword: string = '';
   repositories: Repository[] = [];
+  loading$ = new BehaviorSubject(false);
 
-  constructor(private apiService: ApiService, private authService: AuthService) { }
+  constructor(private apiService: ApiService, private notification: NotificationService) { }
 
   search() {
+    this.loading$.next(true);
+    if (!this.searchKeyword) {
+      this.notification.error('Keyword is required.');
+      this.loading$.next(false);
+      return;
+    }
     this.apiService.searchRepositories(this.searchKeyword).subscribe((data: Repository[]) => {
       this.repositories = data;
+      this.loading$.next(false);
+    }, (error) => {
+      this.notification.error(error);
+      this.loading$.next(false);
     });
   }
 

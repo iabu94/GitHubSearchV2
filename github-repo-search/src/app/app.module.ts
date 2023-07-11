@@ -7,6 +7,8 @@ import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from "@auth0/angular-jwt";
@@ -35,6 +37,8 @@ import { TokenInterceptor } from './services/token.interceptor';
     MatIconModule,
     MatInputModule,
     MatButtonModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
 
     JwtModule
   ],
