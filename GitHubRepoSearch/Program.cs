@@ -1,3 +1,5 @@
+using GitHubRepoSearch.Contracts;
+using GitHubRepoSearch.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -10,6 +12,14 @@ namespace GitHubRepoSearch
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.Cookie.Name = "GitHubRepoSearch.Session";
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Adjust the timeout as per your requirements
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             // Add services to the container.
             builder.Services.AddCors(options =>
             {
@@ -33,15 +43,8 @@ namespace GitHubRepoSearch
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("6c7388aa-83eb-44a1-ba37-6503dcf95c43"))
                     };
                 });
-            builder.Services.AddDistributedMemoryCache();
-            builder.Services.AddSession(options =>
-            {
-                options.Cookie.Name = "GitHubRepoSearch.Session";
-                options.IdleTimeout = TimeSpan.FromMinutes(30); // Adjust the timeout as per your requirements
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
             builder.Services.AddControllers();
+            builder.Services.AddSingleton<IBookmarkService, BookmarkService>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -55,11 +58,12 @@ namespace GitHubRepoSearch
                 app.UseSwaggerUI();
             }
             app.UseCors("AllowAll");
-            app.UseSession();
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.MapControllers();
 

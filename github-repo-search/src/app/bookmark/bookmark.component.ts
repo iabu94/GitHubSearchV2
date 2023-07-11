@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-bookmark',
@@ -10,10 +9,8 @@ import { AuthService } from '../services/auth.service';
 export class BookmarkComponent {
   bookmarkedRepositories: any[] = [];
 
-  constructor(private apiService: ApiService, private authService: AuthService) { }
-
-  ngOnInit() {
-    this.apiService.getBookmarkedRepositories(this.authService.getToken()).subscribe((data: any) => {
+  constructor(private apiService: ApiService) { 
+    this.apiService.getBookmarkedRepositories().subscribe((data: any) => {
       this.bookmarkedRepositories = data;
     });
   }

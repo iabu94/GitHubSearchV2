@@ -1,11 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private authUrl = 'https://localhost:7069/api/auth';
+
+  constructor(private http: HttpClient) {}
+
   getToken(): string {
-    // Implement the logic to retrieve the JWT token from session or local storage
-    return 'your-token-here';
+    return localStorage.getItem('uuid') ?? '';
+  }
+
+  fetchTokenFromApi() {
+    return this.http.post(this.authUrl, {});
   }
 }

@@ -20,8 +20,8 @@ export class RepositorySearchComponent {
     });
   }
 
-  bookmark(repo: any) {
-    this.apiService.bookmarkRepository(repo, this.authService.getToken()).subscribe(() => {
+  bookmark(repo: Repository) {
+    this.apiService.bookmarkRepository(repo).subscribe(() => {
       // Handle success or error response
     });
   }

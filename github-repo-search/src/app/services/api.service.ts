@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Repository } from '../models';
@@ -16,15 +16,13 @@ export class ApiService {
     return this.http.get<Repository[]>(url);
   }
 
-  bookmarkRepository(repo: any, token: string): Observable<any> {
-    const url = `${this.apiUrl}/repositories/${repo.id}/bookmark`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(url, {}, { headers });
+  bookmarkRepository(repo: Repository): Observable<any> {
+    const url = `${this.apiUrl}/bookmark`;
+    return this.http.post(url, repo);
   }
 
-  getBookmarkedRepositories(token: string): Observable<any> {
-    const url = `${this.apiUrl}/bookmarks`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(url, { headers });
+  getBookmarkedRepositories(): Observable<Repository[]> {
+    const url = `${this.apiUrl}/bookmark`;
+    return this.http.get<Repository[]>(url);
   }
 }
